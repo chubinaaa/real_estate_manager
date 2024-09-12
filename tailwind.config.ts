@@ -13,7 +13,8 @@ const config: Config = {
         secondaryRed: "#DF3014",
         primaryGray: "#808A93",
         secondaryGray: "#02152680",
-        primaryBlack: "#021526"
+        primaryBlack: "#021526",
+        secondaryWhite: "#F3F3F3"
       }
     },
   },

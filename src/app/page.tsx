@@ -1,32 +1,30 @@
 "use client";
 
-import RadioCheckbox from "../components/ui/RadioCheckbox";
+import { useState } from "react";
+import DropDownButton from "../components/ui/buttons/DropDownButton";
 
 export default function Home() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    
-    const form = new FormData(e.currentTarget);
-    console.log(form.get("radio_input"));
-  };
+  const [modal1, setModal1] = useState(false);
+  const [modal2, setModal2] = useState(false);
+  const [modal3, setModal3] = useState(false);
 
   return (
-    <div className="w-full flex justify-center items-center gap-3">
-      <form onSubmit={handleSubmit}>
-        <RadioCheckbox
-          id="for_sale"
-          name="radio_input"
-          value="for_sale_value_for_api"
-          label="იყიდება"
-        />
-        <RadioCheckbox
-          id="for_rent"
-          name="radio_input"
-          value="for_rent_value_for_api"
-          label="ქირავდება"
-        />
-        <button type="submit">ტესტ</button>
-      </form>
+    <div className="w-full flex justify-center items-center gap-10 p-10">
+      <DropDownButton
+        label="პირველი"
+        action={() => setModal1((prev) => !prev)}
+        modalState={modal1}
+      />
+      <DropDownButton
+        label="მეორე"
+        action={() => setModal2((prev) => !prev)}
+        modalState={modal2}
+      />
+      <DropDownButton
+        label="მესამე"
+        action={() => setModal3((prev) => !prev)}
+        modalState={modal3}
+      />
     </div>
   );
 }

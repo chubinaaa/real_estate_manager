@@ -2,7 +2,7 @@
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & { label: string };
 
-export default function RadioCheckbox({ label, ...props }: Props) {
+export default function RadioInput({ label, ...props }: Props) {
   return (
     <div className="w-fit flex items-center gap-[7px] select-none">
       <input {...props} type="radio" className="hidden peer" />
