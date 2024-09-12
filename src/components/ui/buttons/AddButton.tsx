@@ -16,7 +16,7 @@ export default function AddButton({ text, variant, action }: Props) {
         variant === "filled"
           ? "text-white bg-primaryRed hover:bg-secondaryRed border-[1px] border-primaryRed hover:border-secondaryRed"
           : "text-primaryRed bg-white hover:bg-primaryRed hover:text-white | border-[1px] border-primaryRed"
-      } | rounded-[10px] px-4 py-3 | font-medium`}
+      } | rounded-[10px] px-4 py-3 | font-medium select-none`}
       onClick={action}
     >
       <IoIosAdd size={22} />
