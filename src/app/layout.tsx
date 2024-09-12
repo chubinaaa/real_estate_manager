@@ -49,7 +49,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={fira_go.className}>{children}</body>
+      <body className={`${fira_go.className} text-primaryBlack`}>
+        {children}
+      </body>
     </html>
   );
 }
