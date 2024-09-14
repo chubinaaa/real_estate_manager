@@ -1,3 +1,7 @@
-export default function Price() {
-  return <h1 className="font-bold text-[28px] text-primaryBlack">80 000 ₾</h1>;
+type Props = {
+  value: number;
+};
+
+export default function Price({ value }: Props) {
+  return <h1 className="font-bold text-[28px] text-primaryBlack">{value} ₾</h1>;
 }

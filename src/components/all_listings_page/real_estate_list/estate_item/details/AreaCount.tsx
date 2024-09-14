@@ -1,7 +1,11 @@
 import Image from "next/image";
 import icon from "../../../../../../public/svg/area_icon.svg";
 
-export default function AreaCount() {
+type Props = {
+  value: number;
+};
+
+export default function AreaCount({ value }: Props) {
   return (
     <div className="w-fit flex justify-center items-center gap-[5px] | text-fourthGray">
       <Image
@@ -11,7 +15,9 @@ export default function AreaCount() {
         height={36}
         className="w-[18px] h-[18px]"
       />
-      <p>55 მ2</p>
+      <p>
+        {value} მ<sup>2</sup>
+      </p>
     </div>
   );
 }
