@@ -8,11 +8,11 @@ export default function Home() {
   return (
     <div className="w-full max-w-customMax mx-auto mt-[77px] flex flex-col justify-center items-center gap-8">
       <div className="w-full flex justify-between items-start">
-        <div className="w-fit flex flex-col justify-center items-center gap-4">
+        <div className="w-full flex flex-col justify-center items-start gap-4">
           <FilterOptions />
           <ChosenFilters />
         </div>
-        <div className="w-fit flex justify-center items-center">
+        <div className="w-fit flex justify-center items-center gap-4">
           <AddListing />
           <AddAgent />
         </div>

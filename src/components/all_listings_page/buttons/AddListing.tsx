@@ -1,5 +1,13 @@
+"use client";
+
+import AddButton from "../../ui/buttons/AddButton";
+
 export default function AddListing() {
   return (
-    <div>AddListing</div>
-  )
+    <AddButton
+      variant="filled"
+      text="ლისტინგის დამატება"
+      action={() => console.log("")}
+    />
+  );
 }
