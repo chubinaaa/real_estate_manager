@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
+import Header from "../components/header/Header";
 
 const fira_go = localFont({
   src: [
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <body className={`${fira_go.className} text-primaryBlack`}>
+        <Header />
         {children}
       </body>
     </html>
