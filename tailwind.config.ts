@@ -15,12 +15,16 @@ const config: Config = {
         primaryGray: "#808A93",
         secondaryGray: "#02152680",
         thirdGray: "#DBDBDB",
+        fourthGray: "#021526B2",
         primaryBlack: "#021526",
         secondaryBlack: "#354451",
       },
       maxWidth: {
         customMax: "1596px"
-      }
+      },
+      boxShadow: {
+        'custom': '5px 5px 12px 0px rgba(2, 21, 38, 0.078)',
+      },
     },
   },
   plugins: [],

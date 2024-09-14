@@ -46,7 +46,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <body className={`${fira_go.className} w-full text-primaryBlack`}>
+      <body
+        className={`${fira_go.className} w-full text-primaryBlack bg-white`}
+      >
         <Header />
         {children}
       </body>
