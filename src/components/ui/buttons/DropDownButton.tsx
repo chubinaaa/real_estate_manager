@@ -12,7 +12,7 @@ export default function DropDownButton({ label, action, modalState }: Props) {
   return (
     <button
       type="button"
-      className={`w-fit flex justify-center items-center gap-1 | text-primaryBlack rounded-[6px] | px-[14px] py-2 ${
+      className={`w-fit h-[35px] flex justify-center items-center gap-1 | text-primaryBlack rounded-[6px] | px-[14px] ${
         modalState ? "bg-secondaryWhite" : "bg-white"
       }`}
       onClick={action}

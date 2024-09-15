@@ -12,11 +12,11 @@ export default function AddButton({ text, variant, action }: Props) {
   return (
     <button
       type="button"
-      className={`flex justify-center items-center gap-1 | ${
+      className={`h-[47px] flex justify-center items-center gap-1 | ${
         variant === "filled"
           ? "text-white bg-primaryRed hover:bg-secondaryRed border-[1px] border-primaryRed hover:border-secondaryRed"
           : "text-primaryRed bg-white hover:bg-primaryRed hover:text-white | border-[1px] border-primaryRed"
-      } | rounded-[10px] px-4 py-3 | font-medium select-none`}
+      } | rounded-[10px] px-4 | font-medium select-none text-nowrap`}
       onClick={action}
     >
       <IoIosAdd size={22} />

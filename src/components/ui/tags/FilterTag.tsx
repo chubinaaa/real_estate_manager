@@ -7,7 +7,7 @@ type Props = {
 
 export default function FilterTag({ label, deleteAct }: Props) {
   return (
-    <div className="w-fit flex justify-center items-center gap-1 | border-[1px] border-thirdGray rounded-full px-[10px] py-[6px] | font-normal select-none">
+    <div className="w-fit h-[29px] flex justify-center items-center gap-1 | border-[1px] border-thirdGray rounded-full px-[10px] | font-normal select-none">
       <h1>{label}</h1>
       <XcloseBtn onClick={deleteAct} />
     </div>

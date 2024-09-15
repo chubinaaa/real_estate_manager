@@ -1,16 +1,12 @@
-"use client";
-
-type Props = {
+type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   text: string;
-  action: () => void;
 };
 
-export default function RedButton({ text, action }: Props) {
+export default function RedButton({ text, ...props }: Props) {
   return (
     <button
-      type="button"
+      {...props}
       className="text-white bg-primaryRed hover:bg-secondaryRed | rounded-[10px] | px-[14px] py-2 | font-medium select-none"
-      onClick={action}
     >
       {text}
     </button>
