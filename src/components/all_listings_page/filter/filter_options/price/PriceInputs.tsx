@@ -1,4 +1,4 @@
-import PriceInput from "../../../../ui/inputs/PriceInput";
+import PriceInput from "./PriceInput";
 
 export default function PriceInputs() {
   const validity = false;

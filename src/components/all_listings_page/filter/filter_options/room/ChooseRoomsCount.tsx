@@ -16,9 +16,23 @@ export default function ChooseRoomsCount() {
       />
       {isOpen && (
         <FilterOptionsModal label="საძინებლების რაოდენობა">
-          <h1>
-            testtesttesttesttesttesttesttesttesttesttsttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestv
-          </h1>
+          <div className="w-full grid grid-cols-4 gap-4">
+            <div className="w-10 h-10 | rounded-[6px] border-[1px] border-primaryGray | flex justify-center items-center | cursor-pointer">
+              <h1 className="text-[14px] font-normal text-primaryGray">1</h1>
+            </div>
+            <div className="w-10 h-10 | rounded-[6px] border-[1px] border-primaryGray | flex justify-center items-center | cursor-pointer">
+              <h1 className="text-[14px] font-normal text-primaryGray">2</h1>
+            </div>
+            <div className="w-10 h-10 | rounded-[6px] border-[1px] border-primaryGray | flex justify-center items-center | cursor-pointer">
+              <h1 className="text-[14px] font-normal text-primaryGray">3</h1>
+            </div>
+            <div className="w-10 h-10 | rounded-[6px] border-[1px] border-primaryGray | flex justify-center items-center | cursor-pointer">
+              <h1 className="text-[14px] font-normal text-primaryGray">4</h1>
+            </div>
+            <div className="w-10 h-10 | rounded-[6px] border-[1px] border-primaryGray | flex justify-center items-center | cursor-pointer">
+              <h1 className="text-[14px] font-normal text-primaryGray">5</h1>
+            </div>
+          </div>
         </FilterOptionsModal>
       )}
     </div>

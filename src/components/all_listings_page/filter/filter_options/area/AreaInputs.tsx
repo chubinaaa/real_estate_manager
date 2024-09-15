@@ -1,4 +1,4 @@
-import AreaInput from "../../../../ui/inputs/AreaInput";
+import AreaInput from "./AreaInput";
 
 export default function AreaInputs() {
   const validity = false;
