@@ -3,6 +3,7 @@ import BackBtn from "../../components/single_listing_page/BackBtn";
 import Description from "../../components/single_listing_page/Description";
 import EstateDetails from "../../components/single_listing_page/estate_details/EstateDetails";
 import EstatePicture from "../../components/single_listing_page/EstatePicture";
+import Suggestions from "../../components/single_listing_page/suggestions/Suggestions";
 import GrayButton from "../../components/ui/buttons/GrayButton";
 
 export default function SingleEstatePage() {
@@ -18,6 +19,7 @@ export default function SingleEstatePage() {
           <GrayButton text="ლისტინგის წაშლა" />
         </div>
       </div>
+      <Suggestions />
     </main>
   );
 }

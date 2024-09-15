@@ -1,10 +1,17 @@
+import Image from "next/image";
 import Link from "next/link";
-import { IoIosArrowRoundBack } from "react-icons/io";
+import icon from "/public/svg/left_arrow_icon.svg";
 
 export default function BackBtn() {
   return (
     <Link href={"/"}>
-      <IoIosArrowRoundBack size={32} />
+      <Image
+        src={icon}
+        alt="left arrow"
+        width={64}
+        height={64}
+        className="w-[22px] h-[22px]"
+      />
     </Link>
   );
 }
