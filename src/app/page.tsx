@@ -6,7 +6,7 @@ import EstatesList from "../components/all_listings_page/real_estate_list/Estate
 
 export default function Home() {
   return (
-    <div className="w-full max-w-customMax mx-auto mt-[77px] flex flex-col justify-center items-center gap-8">
+    <main className="w-full max-w-customMax mx-auto mt-[77px] flex flex-col justify-center items-center gap-8">
       <div className="w-full flex justify-between items-start">
         <div className="w-full flex flex-col justify-center items-start gap-4">
           <FilterOptions />
@@ -18,6 +18,6 @@ export default function Home() {
         </div>
       </div>
       <EstatesList />
-    </div>
+    </main>
   );
 }

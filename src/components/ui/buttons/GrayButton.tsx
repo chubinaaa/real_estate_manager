@@ -2,7 +2,7 @@
 
 type Props = {
   text: string;
-  action: () => void;
+  action?: () => void;
 };
 
 export default function GrayButton({ text, action }: Props) {
