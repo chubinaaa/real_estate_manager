@@ -1,14 +1,18 @@
 type Props = React.InputHTMLAttributes<HTMLSelectElement> & {
-  label: string;
+  labelText: string;
   optionList: Array<string>;
   isRequired?: boolean;
 };
 
-export default function SelectOptions({ label, optionList, ...props }: Props) {
+export default function SelectOptions({
+  labelText,
+  optionList,
+  ...props
+}: Props) {
   return (
     <div className="w-full flex flex-col justify-center items-start gap-[5px]">
       <label htmlFor="somevalue" className="text-[14px] font-medium">
-        აირჩიე რეგიონი *
+        {labelText} *
       </label>
       <select
         className="w-full h-[42px] px-[10px] | bg-white border-[1px] border-primaryGray rounded-[6px] | font-normal text-[14px]"
@@ -16,8 +20,8 @@ export default function SelectOptions({ label, optionList, ...props }: Props) {
         id="somevalue"
         {...props}
       >
-        {optionList.map((opt) => (
-          <option>{opt}</option>
+        {optionList.map((opt, idx) => (
+          <option key={idx}>{opt}</option>
         ))}
       </select>
     </div>

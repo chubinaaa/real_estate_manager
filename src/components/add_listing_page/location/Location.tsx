@@ -23,11 +23,11 @@ export default function Location() {
       </div>
       <div className="w-full flex justify-center items-center gap-5">
         <SelectOptions
-          label="რეგიონი"
+          labelText="რეგიონი"
           optionList={["შიდა ქართლი", "სამეგრელო", "იმერეთ", "კახეთი", "აჭარა"]}
         />
         <SelectOptions
-          label="ქალაქი"
+          labelText="ქალაქი"
           optionList={["თბილისი", "სენაკი", "ჭიათურა", "სიღნაღი", "ბათუმი"]}
         />
       </div>
