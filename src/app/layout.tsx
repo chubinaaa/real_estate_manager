@@ -52,6 +52,7 @@ export default function RootLayout({ children }: LayoutProps) {
         <Header />
         {children}
         <div id="add-agent-modal"></div>
+        <div id="delete-listing-confirmation-modal"></div>
       </body>
     </html>
   );

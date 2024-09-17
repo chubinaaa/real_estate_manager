@@ -1,10 +1,10 @@
 import AgentDetails from "../../components/single_listing_page/agent_details/AgentDetails";
 import BackBtn from "../../components/single_listing_page/BackBtn";
+import DeleteListing from "../../components/single_listing_page/delete_listing/DeleteListing";
 import Description from "../../components/single_listing_page/Description";
 import EstateDetails from "../../components/single_listing_page/estate_details/EstateDetails";
 import EstatePicture from "../../components/single_listing_page/EstatePicture";
 import Suggestions from "../../components/single_listing_page/suggestions/Suggestions";
-import GrayButton from "../../components/ui/buttons/GrayButton";
 
 export default function SingleEstatePage() {
   return (
@@ -16,7 +16,7 @@ export default function SingleEstatePage() {
           <EstateDetails />
           <Description />
           <AgentDetails />
-          <GrayButton text="ლისტინგის წაშლა" />
+          <DeleteListing />
         </div>
       </div>
       <Suggestions />
