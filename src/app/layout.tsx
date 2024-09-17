@@ -51,6 +51,7 @@ export default function RootLayout({ children }: LayoutProps) {
       >
         <Header />
         {children}
+        <div id="add-agent-modal"></div>
       </body>
     </html>
   );
