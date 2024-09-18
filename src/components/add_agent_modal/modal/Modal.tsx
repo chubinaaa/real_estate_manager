@@ -1,41 +1,64 @@
 "use client";
 
+import { useState } from "react";
+import { API_DOMAIN, API_TOKEN } from "../../../utils/constants";
 import Backdrop from "../../ui/Backdrop";
-import FileInput from "../../ui/inputs/FileInput";
-import TypingInput from "../../ui/inputs/TypingInput";
-import Buttons from "./Buttons";
+import GrayButton from "../../ui/buttons/GrayButton";
+import RedButton from "../../ui/buttons/RedButton";
 import Heading from "./Heading";
+import Inputs from "./Inputs";
 
 type Props = {
   modalHandler: () => void;
 };
 
 export default function Modal({ modalHandler }: Props) {
+  const [isSubmitEnable, setIsSubmitEnable] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      const res = await fetch(`${API_DOMAIN}/agents`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          authorization: `Bearer ${API_TOKEN}`,
+        },
+        body: formData,
+      });
+
+      if (!res.ok) throw new Error("Failed to post agent data");
+      modalHandler();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <>
       <Backdrop onClick={modalHandler} />
-      <div className="z-50 fixed top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 | flex flex-col justify-center items-center | px-[105px] py-[87px] | bg-white rounded-[10px] ">
+      <form
+        onSubmit={handleSubmit}
+        className="z-50 fixed top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 | flex flex-col justify-center items-center | px-[105px] py-[87px] | bg-white rounded-[10px] "
+      >
         <Heading />
-        <div className="w-[800px] | mt-[60px] mb-[94px] | flex flex-col justify-center items-center gap-7">
-          <div className="w-full grid grid-cols-2 gap-x-[30px] gap-y-7">
-            <TypingInput label="სახელი" messageText="მინიმუმ ორი სიმბოლო" />
-            <TypingInput label="გვარი" messageText="მინიმუმ ორი სიმბოლო" />
-            <TypingInput
-              label="ელ-ფოსტა"
-              messageText="გამოიყენეთ @redberry.ge ფოსტა"
-            />
-            <TypingInput
-              label="ტელეფონის ნომერი"
-              messageText="მხოლოდ რიცხვები"
-            />
-          </div>
-          <FileInput label="ატვირთეთ ფოტო" />
+        <Inputs enableSubmition={setIsSubmitEnable} />
+        <div className="w-full flex justify-end items-center gap-[15px]">
+          <GrayButton text="გაუქმება" action={modalHandler} />
+          <RedButton
+            text="დაამატე აგენტი"
+            type="submit"
+            disabled={!isSubmitEnable || isLoading}
+          />
         </div>
-        <Buttons
-          addAct={() => console.log("დაემატა აგენტი")}
-          cancelAct={modalHandler}
-        />
-      </div>
+      </form>
     </>
   );
 }

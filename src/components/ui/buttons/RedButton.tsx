@@ -6,7 +6,7 @@ export default function RedButton({ text, ...props }: Props) {
   return (
     <button
       {...props}
-      className="text-white bg-primaryRed hover:bg-secondaryRed | rounded-[10px] | px-[14px] py-2 | font-medium select-none"
+      className="text-white bg-primaryRed hover:bg-secondaryRed | rounded-[10px] | px-[14px] py-2 | font-medium select-none | disabled:opacity-50 disabled:hover:bg-primaryRed"
     >
       {text}
     </button>
