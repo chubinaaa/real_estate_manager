@@ -2,15 +2,16 @@
 
 import Image from "next/image";
 import add_icon from "/public/svg/plus_icon.svg";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
+  state: [string, React.Dispatch<React.SetStateAction<string>>];
 };
 
-export default function FileInput({ label, ...props }: Props) {
+export default function FileInput({ label, state, ...props }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [showSelectedPicture, setShowSelectedPicture] = useState("");
+  const [showSelectedPicture, setShowSelectedPicture] = state;
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

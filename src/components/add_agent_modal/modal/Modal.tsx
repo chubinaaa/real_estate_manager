@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { API_DOMAIN, API_TOKEN } from "../../../utils/constants";
 import Backdrop from "../../ui/Backdrop";
-import Buttons from "./Buttons";
+import GrayButton from "../../ui/buttons/GrayButton";
+import RedButton from "../../ui/buttons/RedButton";
 import Heading from "./Heading";
 import Inputs from "./Inputs";
 
@@ -11,7 +13,11 @@ type Props = {
 };
 
 export default function Modal({ modalHandler }: Props) {
+  const [isSubmitEnable, setIsSubmitEnable] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
@@ -30,6 +36,8 @@ export default function Modal({ modalHandler }: Props) {
       modalHandler();
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -41,8 +49,15 @@ export default function Modal({ modalHandler }: Props) {
         className="z-50 fixed top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 | flex flex-col justify-center items-center | px-[105px] py-[87px] | bg-white rounded-[10px] "
       >
         <Heading />
-        <Inputs />
-        <Buttons cancelAct={modalHandler} />
+        <Inputs enableSubmition={setIsSubmitEnable} />
+        <div className="w-full flex justify-end items-center gap-[15px]">
+          <GrayButton text="გაუქმება" action={modalHandler} />
+          <RedButton
+            text="დაამატე აგენტი"
+            type="submit"
+            disabled={!isSubmitEnable || isLoading}
+          />
+        </div>
       </form>
     </>
   );

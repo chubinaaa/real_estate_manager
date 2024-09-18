@@ -18,6 +18,7 @@ const config: Config = {
         fourthGray: "#021526B2",
         primaryBlack: "#021526",
         secondaryBlack: "#354451",
+        primaryGreen: "#45A849"
       },
       maxWidth: {
         customMax: "1596px"
