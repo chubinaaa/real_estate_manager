@@ -3,14 +3,13 @@ import RedButton from "../../ui/buttons/RedButton";
 
 type Props = {
   cancelAct: () => void;
-  addAct: () => void;
 };
 
-export default function Buttons({ addAct, cancelAct }: Props) {
+export default function Buttons({ cancelAct }: Props) {
   return (
     <div className="w-full flex justify-end items-center gap-[15px]">
       <GrayButton text="გაუქმება" action={cancelAct} />
-      <RedButton text="დაამატე აგენტი" onClick={() => addAct()} />
+      <RedButton text="დაამატე აგენტი" type="submit" />
     </div>
   );
 }
