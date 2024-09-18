@@ -26,6 +26,7 @@ export default function Inputs({ enableSubmition }: Props) {
   });
   const [avatar, setAvatar] = useState("");
 
+  // Validation
   useEffect(() => {
     const validate = (condition: boolean) => condition;
 
@@ -55,7 +56,7 @@ export default function Inputs({ enableSubmition }: Props) {
         <TypingInput
           label="სახელი"
           messageText="მინიმუმ ორი სიმბოლო"
-          id="name"
+          id="agent_name_input"
           name="name"
           state={[name, setName]}
           isRequired
@@ -63,7 +64,7 @@ export default function Inputs({ enableSubmition }: Props) {
         <TypingInput
           label="გვარი"
           messageText="მინიმუმ ორი სიმბოლო"
-          id="surname"
+          id="agent_surname_input"
           name="surname"
           state={[surname, setSurname]}
           isRequired
@@ -71,7 +72,7 @@ export default function Inputs({ enableSubmition }: Props) {
         <TypingInput
           label="ელ-ფოსტა"
           messageText="გამოიყენეთ @redberry.ge ფოსტა"
-          id="email"
+          id="agent_email_input"
           name="email"
           state={[email, setEmail]}
           isRequired
@@ -79,7 +80,7 @@ export default function Inputs({ enableSubmition }: Props) {
         <TypingInput
           label="ტელეფონის ნომერი"
           messageText="მხოლოდ რიცხვები (ფორმატი: 5XXXXXXXX)"
-          id="phone"
+          id="agent_phone_input"
           name="phone"
           state={[phone, setPhone]}
           isRequired
@@ -88,7 +89,7 @@ export default function Inputs({ enableSubmition }: Props) {
       </div>
       <FileInput
         label="ატვირთეთ ფოტო"
-        id="avatar"
+        id="agent_avatar_input"
         name="avatar"
         state={[avatar, setAvatar]}
       />

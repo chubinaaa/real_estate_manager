@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import add_icon from "/public/svg/plus_icon.svg";
-import { useRef } from "react";
+import garbage_icon from "/public/svg/garbage.svg";
+import { useEffect, useRef } from "react";
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
@@ -21,6 +22,22 @@ export default function FileInput({ label, state, ...props }: Props) {
     }
     setShowSelectedPicture(URL.createObjectURL(file));
   };
+
+  useEffect(() => {
+    if (window && props.id) {
+      const storedValue = localStorage.getItem(props.id);
+      if (window && props.id && storedValue) {
+        setShowSelectedPicture(storedValue);
+        console.log(storedValue);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (window && props.id) {
+      localStorage.setItem(props.id, showSelectedPicture);
+    }
+  }, [showSelectedPicture]);
 
   return (
     <>
@@ -45,13 +62,23 @@ export default function FileInput({ label, state, ...props }: Props) {
           }
         >
           {showSelectedPicture ? (
-            <Image
-              src={showSelectedPicture}
-              alt="uploaded file"
-              width={560}
-              height={560}
-              className="w-[92px] h-[82px] object-cover"
-            />
+            <div className="relative">
+              <Image
+                src={showSelectedPicture}
+                alt="uploaded file"
+                width={560}
+                height={560}
+                className="w-[92px] h-[82px] object-cover"
+              />
+              <Image
+                src={garbage_icon}
+                width={64}
+                height={64}
+                alt="garbage icon"
+                className="absolute bottom-0 right-0 transform translate-x-2 translate-y-2 | w-6 h-6 | cursor-pointer"
+                onClick={() => setShowSelectedPicture("")}
+              />
+            </div>
           ) : (
             <Image
               src={add_icon}

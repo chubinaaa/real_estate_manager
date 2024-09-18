@@ -1,5 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import done_icon from "/public/svg/done_icon.svg";
+import red_done_icon from "/public/svg/red_done_icon.svg";
+import green_done_icon from "/public/svg/green_done_icon.svg";
+import { useEffect } from "react";
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
@@ -20,6 +25,21 @@ export default function TypingInput({
 }: Props) {
   const [input, setInput] = state;
 
+  useEffect(() => {
+    if (window && props.id) {
+      const storedValue = localStorage.getItem(props.id);
+      if (window && props.id && storedValue) {
+        setInput((prev) => ({ ...prev, value: storedValue }));
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (window && props.id) {
+      localStorage.setItem(props.id, input.value);
+    }
+  }, [input.value]);
+
   return (
     <div className="w-full flex flex-col justify-center items-start gap-[5px]">
       <label htmlFor={props.id} className="text-[14px] font-medium">
@@ -38,11 +58,17 @@ export default function TypingInput({
       />
       <div className="flex justify-center items-center gap-[7px]">
         <Image
-          src={done_icon}
+          src={
+            input.value.trim().length !== 0
+              ? input.validity
+                ? green_done_icon
+                : red_done_icon
+              : done_icon
+          }
           alt="done icon"
           width={64}
           height={64}
-          className="w-3 h-3"
+          className="w-4 h-4"
         />
         <p
           className={`font-normal text-[14px] ${
