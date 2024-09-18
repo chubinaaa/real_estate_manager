@@ -4,6 +4,7 @@ import Image from "next/image";
 import add_icon from "/public/svg/plus_icon.svg";
 import garbage_icon from "/public/svg/garbage.svg";
 import { useEffect, useRef } from "react";
+import { fileToBase64 } from "../../../utils/helpers";
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
@@ -14,30 +15,59 @@ export default function FileInput({ label, state, ...props }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [showSelectedPicture, setShowSelectedPicture] = state;
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
     if (!file || file.type.split("/")[0] !== "image") {
       return;
     }
+
+    const base64File = (await fileToBase64(file)) as string;
+    // Remember in localstorage
+    localStorage.setItem(props.id as string, base64File);
+    // Show in that moment
     setShowSelectedPicture(URL.createObjectURL(file));
   };
 
   useEffect(() => {
     if (window && props.id) {
       const storedValue = localStorage.getItem(props.id);
-      if (window && props.id && storedValue) {
-        setShowSelectedPicture(storedValue);
-        console.log(storedValue);
+
+      if (storedValue) {
+        const byteString = atob(storedValue.split(",")[1]);
+        const mimeString = storedValue
+          .split(",")[0]
+          .split(":")[1]
+          .split(";")[0];
+
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+        const blob = new Blob([ab], { type: mimeString });
+
+        const retrievedFile = new File([blob], "retrievedFile", {
+          type: mimeString,
+        });
+
+        // Insert into input programatically
+        const inputEl = inputRef.current;
+        const files = inputRef.current?.files;
+
+        if (inputEl && files) {
+          const dataTransfer = new DataTransfer();
+          dataTransfer.items.add(retrievedFile);
+
+          inputEl.files = dataTransfer.files;
+        }
+
+        // Show in that moment
+        setShowSelectedPicture(URL.createObjectURL(retrievedFile));
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (window && props.id) {
-      localStorage.setItem(props.id, showSelectedPicture);
-    }
-  }, [showSelectedPicture]);
 
   return (
     <>
@@ -76,7 +106,11 @@ export default function FileInput({ label, state, ...props }: Props) {
                 height={64}
                 alt="garbage icon"
                 className="absolute bottom-0 right-0 transform translate-x-2 translate-y-2 | w-6 h-6 | cursor-pointer"
-                onClick={() => setShowSelectedPicture("")}
+                onClick={() => {
+                  localStorage.removeItem(props.id as string);
+                  if (inputRef.current) inputRef.current.value = "";
+                  setShowSelectedPicture("");
+                }}
               />
             </div>
           ) : (

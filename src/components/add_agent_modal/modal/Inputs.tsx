@@ -48,6 +48,7 @@ export default function Inputs({ enableSubmition }: Props) {
       isPhoneValid &&
       isAvatarUploaded;
     enableSubmition(isFormValid);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name.value, surname.value, email.value, phone.value, avatar]);
 
   return (
