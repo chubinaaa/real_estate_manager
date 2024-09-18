@@ -34,6 +34,11 @@ export default function Modal({ modalHandler }: Props) {
 
       if (!res.ok) throw new Error("Failed to post agent data");
       modalHandler();
+      localStorage.removeItem("agent_name_input");
+      localStorage.removeItem("agent_surname_input");
+      localStorage.removeItem("agent_email_input");
+      localStorage.removeItem("agent_phone_input");
+      localStorage.removeItem("agent_avatar_input");
     } catch (error) {
       console.error(error);
     } finally {

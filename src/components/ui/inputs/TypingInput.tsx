@@ -32,12 +32,14 @@ export default function TypingInput({
         setInput((prev) => ({ ...prev, value: storedValue }));
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (window && props.id) {
+    if (input.value.trim().length > 0 && window && props.id) {
       localStorage.setItem(props.id, input.value);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input.value]);
 
   return (
