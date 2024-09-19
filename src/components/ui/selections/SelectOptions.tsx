@@ -4,17 +4,20 @@ import { useRef, useState } from "react";
 import Select from "./Select";
 import DropDownModal from "./DropDownModal";
 import Option from "./Option";
+import AgentModalOpener from "./AgentModalOpener";
 
 type Props = React.InputHTMLAttributes<HTMLSelectElement> & {
   labelText: string;
   options: Array<{ id: number; name: string }>;
   state: [number, React.Dispatch<React.SetStateAction<number>>];
+  putAgentModalOpener?: boolean;
 };
 
 export default function SelectOptions({
   labelText,
   options,
   state,
+  putAgentModalOpener,
   ...props
 }: Props) {
   const selectionRef = useRef<HTMLSelectElement>(null);
@@ -56,6 +59,7 @@ export default function SelectOptions({
         />
         {modal[0] && (
           <DropDownModal>
+            {putAgentModalOpener && <AgentModalOpener />}
             {options.map((opt) => (
               <Option
                 key={opt.id}

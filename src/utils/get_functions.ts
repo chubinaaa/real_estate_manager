@@ -37,3 +37,22 @@ export const getCitiesList = async () => {
         return null
     }
 }
+
+export const getAgentsList = async () => {
+    try {
+        const res = await fetch(`${API_DOMAIN}/agents`, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json",
+                Accept: "application/json",
+                authorization: `Bearer ${API_TOKEN}`,
+            },
+        });
+        if (!res.ok) throw new Error("unable to fetch agents list");
+
+        return await res.json() as Array<Agent>;
+    } catch (error) {
+        console.error(error)
+        return null
+    }
+}
