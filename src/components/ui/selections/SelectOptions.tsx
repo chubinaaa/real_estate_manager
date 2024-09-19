@@ -1,29 +1,51 @@
+"use client";
+
+import { useState } from "react";
+import Select from "./Select";
+import DropDownModal from "./DropDownModal";
+import Option from "./Option";
+
+type OptionType = { id: number; name: string };
+
 type Props = React.InputHTMLAttributes<HTMLSelectElement> & {
   labelText: string;
-  optionList: Array<string>;
-  isRequired?: boolean;
+  options: Array<OptionType>;
+  state: [OptionType, React.Dispatch<React.SetStateAction<OptionType>>];
 };
 
 export default function SelectOptions({
   labelText,
-  optionList,
+  options,
+  state,
   ...props
 }: Props) {
+  const modal = useState(false);
+  const [selectedValue, setSelectedValue] = state;
+
+  const handleSelection = (option: OptionType) => {
+    setSelectedValue(option);
+
+    // Close modal after selection
+    modal[1](false);
+  };
+
   return (
-    <div className="w-full flex flex-col justify-center items-start gap-[5px]">
-      <label htmlFor="somevalue" className="text-[14px] font-medium">
-        {labelText} *
+    <div className="relative w-full flex flex-col justify-center items-start gap-[5px] | select-none">
+      <label htmlFor={props.id} className="text-[14px] font-medium">
+        {labelText}
       </label>
-      <select
-        className="w-full h-[42px] px-[10px] | bg-white border-[1px] border-primaryGray rounded-[6px] | font-normal text-[14px]"
-        name=""
-        id="somevalue"
-        {...props}
-      >
-        {optionList.map((opt, idx) => (
-          <option key={idx}>{opt}</option>
-        ))}
-      </select>
+      <Select selectedName={selectedValue.name} state={modal} />
+      {modal[0] && (
+        <DropDownModal>
+          {options.map((opt) => (
+            <Option
+              key={opt.id}
+              name={opt.name}
+              onClick={() => handleSelection(opt)}
+            />
+          ))}
+        </DropDownModal>
+      )}
     </div>
   );
 }
