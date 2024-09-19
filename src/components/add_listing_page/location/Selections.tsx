@@ -8,7 +8,7 @@ type Props = {
   cities: Array<City> | null;
 };
 
-export default function Place({ cities, regions }: Props) {
+export default function Selections({ cities, regions }: Props) {
   const regionState = useState(
     () => Number(localStorage.getItem("estate_upload_region_selection")) || 0
   );
