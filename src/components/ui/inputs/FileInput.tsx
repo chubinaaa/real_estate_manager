@@ -18,7 +18,7 @@ export default function FileInput({ label, state, ...props }: Props) {
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
-    if (!file || file.type.split("/")[0] !== "image") {
+    if (!file || file.type.split("/")[0] !== "image" || file.size >= 1048576) {
       return;
     }
 
