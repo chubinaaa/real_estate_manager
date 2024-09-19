@@ -9,8 +9,12 @@ type Props = {
 };
 
 export default function Place({ cities, regions }: Props) {
-  const regionState = useState(0);
-  const cityState = useState(0);
+  const regionState = useState(
+    () => Number(localStorage.getItem("estate_upload_region_selection")) || 0
+  );
+  const cityState = useState(
+    () => Number(localStorage.getItem("estate_upload_city_selection")) || 0
+  );
 
   return (
     <div className="w-full grid grid-cols-2 gap-x-5">

@@ -25,7 +25,8 @@ export default function SelectOptions({
     setSelectedId(option);
     if (selectionRef.current) selectionRef.current.value = option.toString();
 
-    // Close modal after selection
+    if (props.id) localStorage.setItem(props.id, option.toString());
+
     modal[1](false);
   };
 
