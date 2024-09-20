@@ -36,7 +36,7 @@ export default function TypingInput({
   }, []);
 
   useEffect(() => {
-    if (input.value.trim().length > 0 && window && props.id) {
+    if (window && props.id) {
       localStorage.setItem(props.id, input.value);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

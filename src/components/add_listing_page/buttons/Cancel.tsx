@@ -6,5 +6,10 @@ import GrayButton from "../../ui/buttons/GrayButton";
 export default function Cancel() {
   const router = useRouter();
 
-  return <GrayButton text="გაუქმება" action={() => router.back()} />;
+  const handleCancel = () => {
+    localStorage.clear();
+    router.back();
+  };
+
+  return <GrayButton text="გაუქმება" action={handleCancel} />;
 }

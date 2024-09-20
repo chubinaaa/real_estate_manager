@@ -5,7 +5,11 @@ import DropDownButton from "../../../../ui/buttons/DropDownButton";
 import FilterOptionsModal from "../../../../ui/modals/FilterOptionsModal";
 import CheckBoxInput from "../../../../ui/inputs/CheckBoxInput";
 
-export default function ChooseRegion() {
+type Props = {
+  data: Array<Region> | null;
+};
+
+export default function ChooseRegion({ data }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSubmition = (e: React.FormEvent<HTMLFormElement>) => {
@@ -26,50 +30,21 @@ export default function ChooseRegion() {
       />
       {isOpen && (
         <FilterOptionsModal label="რეგიონის მიხედვით">
-          <div className="w-full grid grid-cols-3 justify-items-start gap-x-[50px] gap-y-4">
-            <CheckBoxInput
-              label="თბილისი"
-              name="region"
-              id="tbilisi"
-              value="tbilisi"
-            />
-            <CheckBoxInput
-              label="გურია"
-              name="region"
-              id="guria"
-              value="guria"
-            />
-            <CheckBoxInput
-              label="იმერეთი"
-              name="region"
-              id="imereti"
-              value="imereti"
-            />
-            <CheckBoxInput
-              label="სამეგრელო"
-              name="region"
-              id="samegrelo"
-              value="samegrelo"
-            />
-            <CheckBoxInput
-              label="კახეთი"
-              name="region"
-              id="kakheti"
-              value="kakheti"
-            />
-            <CheckBoxInput
-              label="ქართლი"
-              name="region"
-              id="kartli"
-              value="kartli"
-            />
-            <CheckBoxInput
-              label="აფხაზეთი"
-              name="region"
-              id="apkhazeti"
-              value="apkhazeti"
-            />
-          </div>
+          {data ? (
+            <div className="w-full grid grid-cols-3 justify-items-start gap-x-[50px] gap-y-4">
+              {data.map((region) => (
+                <CheckBoxInput
+                  key={region.id}
+                  label={region.name}
+                  name="region"
+                  id={region.id.toString()}
+                  value={region.name}
+                />
+              ))}
+            </div>
+          ) : (
+            <h1>Error while fetching regions. Try again.</h1>
+          )}
         </FilterOptionsModal>
       )}
     </form>
