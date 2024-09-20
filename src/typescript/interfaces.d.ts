@@ -28,6 +28,7 @@ interface Estate {
     is_rental: number
     image: string
     city_id: number
+    created_at: string
     city: {
         id: number
         name: string
@@ -37,7 +38,16 @@ interface Estate {
             name: string
         }
     }
+    description: string
+    agent_id: number
+    agent: Agent
 }
+
+// {
+//     "description": "კარგი სახლი ტესტუალური ტოპ ტოპ",
+//     "agent_id": 795,
+
+//   }
 
 interface IAddEstateCtx {
     isFormValid: boolean
