@@ -27,11 +27,12 @@ export default function Selections({ cities, regions }: Props) {
         ? cityState[1]({ value: savedRegion, validity: true })
         : regionState[1]({ value: 0, validity: false });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     cityState[1]({ value: 0, validity: false });
-    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [regionState[0].value]);
 
   return (

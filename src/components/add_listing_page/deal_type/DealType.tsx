@@ -12,6 +12,7 @@ export default function DealType() {
     if (storedValue === "0" || storedValue === "1") {
       dealTypeState[1]({ value: storedValue, validity: true });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

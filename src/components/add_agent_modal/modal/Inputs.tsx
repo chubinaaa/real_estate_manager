@@ -24,7 +24,7 @@ export default function Inputs({ enableSubmition }: Props) {
     value: "",
     validity: false,
   });
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState({ value: "", validity: false });
 
   // Validation
   useEffect(() => {
@@ -34,12 +34,13 @@ export default function Inputs({ enableSubmition }: Props) {
     const isSurnameValid = validate(surname.value.trim().length > 2);
     const isEmailValid = validate(email.value.trim().endsWith("@redberry.ge"));
     const isPhoneValid = validate(isValidPhoneNumber(phone.value.trim()));
-    const isAvatarUploaded = validate(avatar.trim().length > 0);
+    const isAvatarUploaded = validate(avatar.value.trim().length > 0);
 
     setName((prev) => ({ ...prev, validity: isNameValid }));
     setSurname((prev) => ({ ...prev, validity: isSurnameValid }));
     setEmail((prev) => ({ ...prev, validity: isEmailValid }));
     setPhone((prev) => ({ ...prev, validity: isPhoneValid }));
+    setAvatar((prev) => ({ ...prev, validity: isAvatarUploaded }));
 
     const isFormValid =
       isNameValid &&
@@ -49,7 +50,7 @@ export default function Inputs({ enableSubmition }: Props) {
       isAvatarUploaded;
     enableSubmition(isFormValid);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name.value, surname.value, email.value, phone.value, avatar]);
+  }, [name.value, surname.value, email.value, phone.value, avatar.value]);
 
   return (
     <div className="w-[800px] | mt-[60px] mb-[94px] | flex flex-col justify-center items-center gap-7">

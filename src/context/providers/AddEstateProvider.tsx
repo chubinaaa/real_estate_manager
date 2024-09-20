@@ -21,56 +21,37 @@ export default function AddEstateProvider({ children }: Props) {
   const regionState = useState({ value: 0, validity: false });
   const agentState = useState({ value: 0, validity: false });
 
-  useEffect(() => {
-    if (
-      addressState[0].validity &&
-      postalCodeState[0].validity &&
-      priceState[0].validity &&
-      areaState[0].validity &&
-      bedroomsState[0].validity &&
-      descriptionState[0].validity &&
-      pictureState[0].validity &&
-      dealTypeState[0].validity &&
-      cityState[0].validity &&
-      regionState[0].validity &&
-      agentState[0].validity
-    ) {
-      setIsFormValid(true);
-    } else {
-      setIsFormValid(false);
-    }
-  }, [
-    addressState[0].validity,
-    postalCodeState[0].validity,
-    priceState[0].validity,
-    areaState[0].validity,
-    bedroomsState[0].validity,
-    descriptionState[0].validity,
-    pictureState[0].validity,
-    dealTypeState[0].validity,
-    cityState[0].validity,
-    regionState[0].validity,
-    agentState[0].validity,
-  ]);
+  const inputStates = {
+    addressState,
+    areaState,
+    bedroomsState,
+    cityState,
+    dealTypeState,
+    descriptionState,
+    pictureState,
+    postalCodeState,
+    priceState,
+    regionState,
+    agentState,
+  };
+
+  useEffect(
+    () => {
+      const allValid = Object.values(inputStates).every(
+        ([state]) => state.validity
+      );
+      setIsFormValid(allValid);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    Object.values(inputStates).map(([state]) => state.validity)
+  );
 
   return (
     <AddEstateContext.Provider
       value={{
         isFormValid,
         setIsFormValid,
-        inputStates: {
-          addressState,
-          areaState,
-          bedroomsState,
-          cityState,
-          dealTypeState,
-          descriptionState,
-          pictureState,
-          postalCodeState,
-          priceState,
-          regionState,
-          agentState,
-        },
+        inputStates,
       }}
     >
       {children}

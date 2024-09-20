@@ -21,6 +21,7 @@ export default function SelectTab({ data }: Props) {
         ? setState({ value: savedAgentId, validity: true })
         : setState({ value: 0, validity: false });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
