@@ -8,7 +8,7 @@ import { fileToBase64 } from "../../../utils/helpers";
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
-  state: [string, React.Dispatch<React.SetStateAction<string>>];
+  state: StringInputStateType;
 };
 
 export default function FileInput({ label, state, ...props }: Props) {
@@ -26,7 +26,10 @@ export default function FileInput({ label, state, ...props }: Props) {
     // Remember in localstorage
     localStorage.setItem(props.id as string, base64File);
     // Show in that moment
-    setShowSelectedPicture(URL.createObjectURL(file));
+    setShowSelectedPicture({
+      value: URL.createObjectURL(file),
+      validity: true,
+    });
   };
 
   useEffect(() => {
@@ -63,7 +66,10 @@ export default function FileInput({ label, state, ...props }: Props) {
         }
 
         // Show in that moment
-        setShowSelectedPicture(URL.createObjectURL(retrievedFile));
+        setShowSelectedPicture({
+          value: URL.createObjectURL(retrievedFile),
+          validity: true,
+        });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -85,16 +91,16 @@ export default function FileInput({ label, state, ...props }: Props) {
         </label>
         <div
           className={`w-full h-[120px] | rounded-[8px] | border-[1px] border-dashed border-primaryBlack | flex justify-center items-center | ${
-            !showSelectedPicture && "cursor-pointer"
+            !showSelectedPicture.value && "cursor-pointer"
           }`}
           onClick={() =>
-            !showSelectedPicture && inputRef && inputRef.current?.click()
+            !showSelectedPicture.value && inputRef && inputRef.current?.click()
           }
         >
-          {showSelectedPicture ? (
+          {showSelectedPicture.value ? (
             <div className="relative">
               <Image
-                src={showSelectedPicture}
+                src={showSelectedPicture.value}
                 alt="uploaded file"
                 width={560}
                 height={560}
@@ -109,7 +115,7 @@ export default function FileInput({ label, state, ...props }: Props) {
                 onClick={() => {
                   localStorage.removeItem(props.id as string);
                   if (inputRef.current) inputRef.current.value = "";
-                  setShowSelectedPicture("");
+                  setShowSelectedPicture({ value: "", validity: false });
                 }}
               />
             </div>

@@ -9,7 +9,7 @@ import AgentModalOpener from "./AgentModalOpener";
 type Props = React.InputHTMLAttributes<HTMLSelectElement> & {
   labelText: string;
   options: Array<{ id: number; name: string }>;
-  state: [number, React.Dispatch<React.SetStateAction<number>>];
+  state: NumberInputStateType;
   putAgentModalOpener?: boolean;
 };
 
@@ -25,7 +25,7 @@ export default function SelectOptions({
   const [selectedId, setSelectedId] = state;
 
   const handleSelection = (option: number) => {
-    setSelectedId(option);
+    setSelectedId({ value: option, validity: true });
     if (selectionRef.current) selectionRef.current.value = option.toString();
 
     if (props.id) localStorage.setItem(props.id, option.toString());
@@ -38,8 +38,10 @@ export default function SelectOptions({
       <select
         hidden
         ref={selectionRef}
-        value={selectedId}
-        onChange={(e) => setSelectedId(Number(e.target.value))}
+        value={selectedId.value}
+        onChange={(e) =>
+          setSelectedId({ value: Number(e.target.value), validity: false })
+        }
         {...props}
       >
         <option key={0} value={0}></option>
@@ -54,7 +56,9 @@ export default function SelectOptions({
           {labelText}
         </label>
         <Select
-          selectedName={options.find((el) => el.id === selectedId)?.name || ""}
+          selectedName={
+            options.find((el) => el.id === selectedId.value)?.name || ""
+          }
           state={modal}
         />
         {modal[0] && (

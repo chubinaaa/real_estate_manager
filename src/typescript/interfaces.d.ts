@@ -39,3 +39,20 @@ interface Estate {
     }
 }
 
+interface IAddEstateCtx {
+    isFormValid: boolean
+    setIsFormValid: React.Dispatch<React.SetStateAction<boolean>>
+    inputStates: {
+        addressState: StringInputStateType
+        postalCodeState: StringInputStateType
+        priceState: StringInputStateType
+        areaState: StringInputStateType
+        bedroomsState: StringInputStateType
+        descriptionState: StringInputStateType
+        pictureState: StringInputStateType
+        dealTypeState: StringInputStateType
+        cityState: NumberInputStateType
+        regionState: NumberInputStateType
+        agentState: NumberInputStateType
+    };
+}

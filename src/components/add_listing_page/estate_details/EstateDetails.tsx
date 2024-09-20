@@ -1,16 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import FileInput from "../../ui/inputs/FileInput";
 import TypingInput from "../../ui/inputs/TypingInput";
 import TextareaInput from "./TextareaInput";
+import { AddEstateContext } from "../../../context/ctx";
 
 export default function EstateDetails() {
-  const [price, setPrice] = useState({ value: "", validity: false });
-  const [area, setArea] = useState({ value: "", validity: false });
-  const [bedrooms, setBedrooms] = useState({ value: "", validity: false });
-  const [desc, setDesc] = useState({ value: "", validity: false });
-  const [picture, setPicture] = useState("");
+  const {
+    priceState,
+    areaState,
+    bedroomsState,
+    descriptionState,
+    pictureState,
+  } = useContext(AddEstateContext).inputStates;
+
+  const [price, setPrice] = priceState;
+  const [area, setArea] = areaState;
+  const [bedrooms, setBedrooms] = bedroomsState;
+  const [desc, setDesc] = descriptionState;
+  const [picture, setPicture] = pictureState;
 
   // Validation
   useEffect(() => {
@@ -29,10 +38,6 @@ export default function EstateDetails() {
     setArea((prev) => ({ ...prev, validity: isAreaValid }));
     setBedrooms((prev) => ({ ...prev, validity: isBedroomsValid }));
     setDesc((prev) => ({ ...prev, validity: isDescValid }));
-
-    // მთლიანი ფორმის გავალიდურება
-    // const isFormValid = isPriceValid && isAreaValid && isBedroomsValid && isDescValid
-    // enableSubmition(isFormValid);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [price.value, area.value, bedrooms.value, desc.value]);
@@ -70,7 +75,7 @@ export default function EstateDetails() {
       </div>
       <TextareaInput
         id="estate_upload_desc"
-        name="desc"
+        name="description"
         state={[desc, setDesc]}
       />
       <FileInput

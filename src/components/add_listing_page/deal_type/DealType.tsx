@@ -1,21 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import RadioInput from "../../ui/inputs/RadioInput";
+import { AddEstateContext } from "../../../context/ctx";
 
 export default function DealType() {
-  const [initialValue, setInitialValue] = useState("");
+  const { dealTypeState } = useContext(AddEstateContext).inputStates;
 
   useEffect(() => {
     const storedValue = localStorage.getItem("is_rental");
     if (storedValue === "0" || storedValue === "1") {
-      setInitialValue(storedValue);
+      dealTypeState[1]({ value: storedValue, validity: true });
     }
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
-    setInitialValue(newValue);
+    dealTypeState[1]({ value: newValue, validity: true });
     localStorage.setItem("is_rental", newValue);
   };
 
@@ -29,7 +30,7 @@ export default function DealType() {
           name="is_rental"
           value="0"
           onChange={handleChange}
-          checked={initialValue === "0"}
+          checked={dealTypeState[0].value === "0"}
         />
         <RadioInput
           label="ქირავდება"
@@ -37,7 +38,7 @@ export default function DealType() {
           name="is_rental"
           value="1"
           onChange={handleChange}
-          checked={initialValue === "1"}
+          checked={dealTypeState[0].value === "1"}
         />
       </div>
     </div>

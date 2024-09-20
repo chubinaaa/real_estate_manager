@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import TypingInput from "../../ui/inputs/TypingInput";
+import { AddEstateContext as ctx } from "../../../context/ctx";
 
 export default function Inputs() {
-  const [address, setAddress] = useState({ value: "", validity: false });
-  const [postalCode, setPostalCode] = useState({ value: "", validity: false });
+  const { addressState, postalCodeState } = useContext(ctx).inputStates;
+  const [address, setAddress] = addressState;
+  const [postalCode, setPostalCode] = postalCodeState;
 
   // Validation
   useEffect(() => {
@@ -16,10 +18,6 @@ export default function Inputs() {
 
     setAddress((prev) => ({ ...prev, validity: isAddressValid }));
     setPostalCode((prev) => ({ ...prev, validity: isPostalCodeValid }));
-
-    // მთლიანი ფორმის გავალიდურება
-    // const isFormValid = isAddressValid && isPostalCodeValid;
-    // enableSubmition(isFormValid);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address.value, postalCode.value]);
