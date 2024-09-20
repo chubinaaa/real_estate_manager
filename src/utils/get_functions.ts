@@ -67,9 +67,28 @@ export const getSingleEstateData = async (id: number) => {
                 authorization: `Bearer ${API_TOKEN}`,
             },
         });
-        if (!res.ok) throw new Error("unable to fetch single estate data ");
+        if (!res.ok) throw new Error("unable to fetch single estate data");
 
-        return await res.json() as Estate;
+        return await res.json() as SingleEstate;
+    } catch (error) {
+        console.error(error)
+        return null
+    }
+};
+
+export const getAllEstates = async () => {
+    try {
+        const res = await fetch(`${API_DOMAIN}/real-estates`, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json",
+                Accept: "application/json",
+                authorization: `Bearer ${API_TOKEN}`,
+            },
+        });
+        if (!res.ok) throw new Error("unable to fetch estate list ");
+
+        return await res.json() as Array<EstateInList>;
     } catch (error) {
         console.error(error)
         return null

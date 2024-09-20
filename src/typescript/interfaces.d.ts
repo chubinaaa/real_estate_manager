@@ -18,7 +18,7 @@ interface Agent {
     avatar: string
 }
 
-interface Estate {
+interface SingleEstate {
     id: number
     address: string
     zip_code: string
@@ -43,11 +43,26 @@ interface Estate {
     agent: Agent
 }
 
-// {
-//     "description": "კარგი სახლი ტესტუალური ტოპ ტოპ",
-//     "agent_id": 795,
-
-//   }
+interface EstateInList {
+    id: number,
+    address: string,
+    zip_code: string,
+    price: number,
+    area: number,
+    bedrooms: number,
+    image: string,
+    is_rental: number,
+    city_id: number,
+    city: {
+        id: number,
+        name: string,
+        region_id: number,
+        region: {
+            id: number,
+            name: string
+        }
+    }
+}
 
 interface IAddEstateCtx {
     isFormValid: boolean
