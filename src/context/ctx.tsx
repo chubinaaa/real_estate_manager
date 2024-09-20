@@ -1,8 +1,8 @@
 import { createContext } from "react";
 
 export const AddEstateContext = createContext<IAddEstateCtx>({
-  isFormValid: false,
-  setIsFormValid: () => {},
+  disableBtn: false,
+  setDisableBtn: () => {},
   inputStates: {
     addressState: [{ value: "", validity: false }, () => {}],
     postalCodeState: [{ value: "", validity: false }, () => {}],

@@ -7,18 +7,22 @@ import GrayButton from "../../ui/buttons/GrayButton";
 import RedButton from "../../ui/buttons/RedButton";
 import Heading from "./Heading";
 import Inputs from "./Inputs";
+import { revalidateAgentsList } from "../../../actions";
+import { useRouter } from "next/navigation";
 
 type Props = {
   modalHandler: () => void;
 };
 
 export default function Modal({ modalHandler }: Props) {
+  const router = useRouter();
   const [isSubmitEnable, setIsSubmitEnable] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setIsLoading(true);
     e.preventDefault();
+    e.stopPropagation();
 
     const formData = new FormData(e.currentTarget);
 
@@ -33,6 +37,9 @@ export default function Modal({ modalHandler }: Props) {
       });
 
       if (!res.ok) throw new Error("Failed to post agent data");
+
+      await revalidateAgentsList();
+      router.refresh();
       modalHandler();
       localStorage.clear();
     } catch (error) {

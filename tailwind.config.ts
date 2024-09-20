@@ -15,7 +15,7 @@ const config: Config = {
         primaryGray: "#808A93",
         secondaryGray: "#02152680",
         thirdGray: "#DBDBDB",
-        fourthGray: "#021526B2",
+        fourthGray: "rgba(2, 21, 38, 0.5)",
         primaryBlack: "#021526",
         secondaryBlack: "#354451",
         primaryGreen: "#45A849"

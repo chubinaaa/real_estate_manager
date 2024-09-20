@@ -12,7 +12,7 @@ export default function AgentPicture({ source }: Props) {
       alt="agent profile picture"
       width={128}
       height={128}
-      className="w-[72px] h-[72px] rounded-full"
+      className="w-[72px] h-[72px] rounded-full object-cover"
     />
   );
 }
