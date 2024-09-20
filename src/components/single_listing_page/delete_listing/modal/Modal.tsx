@@ -1,13 +1,44 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { API_DOMAIN, API_TOKEN } from "../../../../utils/constants";
 import Backdrop from "../../../ui/Backdrop";
 import XcloseBtn from "../../../ui/buttons/XcloseBtn";
 import Buttons from "./Buttons";
 import Heading from "./Heading";
+import { useState } from "react";
 
 type Props = {
   modalHandler: () => void;
+  estate_id: number;
 };
 
-export default function Modal({ modalHandler }: Props) {
+export default function Modal({ modalHandler, estate_id }: Props) {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const deleteAction = async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch(`${API_DOMAIN}/real-estates/${estate_id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+          authorization: `Bearer ${API_TOKEN}`,
+        },
+      });
+
+      if (!res.ok) throw new Error("Unable to delete single estate");
+
+      router.replace("/");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <>
       <Backdrop onClick={modalHandler} />
@@ -18,7 +49,8 @@ export default function Modal({ modalHandler }: Props) {
         </span>
         <Buttons
           cancelAct={modalHandler}
-          deleteAct={() => console.log("წაიშალა ლისტინგი")}
+          deleteAct={deleteAction}
+          loading={isLoading}
         />
       </div>
     </>

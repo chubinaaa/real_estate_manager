@@ -4,7 +4,11 @@ import { useState } from "react";
 import GrayButton from "../../ui/buttons/GrayButton";
 import DeleteListingModal from "./modal/DeleteListingModal";
 
-export default function DeleteListing() {
+type Props = {
+  id: number;
+};
+
+export default function DeleteListing({ id }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleModal = () => setIsOpen((prev) => !prev);
@@ -12,7 +16,7 @@ export default function DeleteListing() {
   return (
     <>
       <GrayButton text="ლისტინგის წაშლა" action={handleModal} />
-      {isOpen && <DeleteListingModal modalhandler={handleModal} />}
+      {isOpen && <DeleteListingModal modalhandler={handleModal} id={id} />}
     </>
   );
 }

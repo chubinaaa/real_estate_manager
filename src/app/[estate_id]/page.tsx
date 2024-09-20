@@ -39,7 +39,7 @@ export default async function SingleEstatePage({ params }: PageProps) {
                 email={data.agent.email}
                 phone={data.agent.phone}
               />
-              <DeleteListing />
+              <DeleteListing id={data.id} />
             </div>
           </div>
           <Suggestions />
