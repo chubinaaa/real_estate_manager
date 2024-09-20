@@ -59,7 +59,7 @@ export const getAgentsList = unstable_cache(async () => {
         console.error(error)
         return null
     }
-}, ["agent_list"])
+}, ["agent_list"], { tags: ["agent_list"] })
 
 // Estates
 export const getSingleEstateData = async (id: number) => {
@@ -99,4 +99,4 @@ export const getAllEstates = unstable_cache(async () => {
         console.error(error)
         return null
     }
-}, ["estate_list"])
+}, ["estate_list"], { tags: ["estate_list"] })

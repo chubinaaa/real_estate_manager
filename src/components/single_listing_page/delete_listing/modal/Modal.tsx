@@ -7,6 +7,7 @@ import XcloseBtn from "../../../ui/buttons/XcloseBtn";
 import Buttons from "./Buttons";
 import Heading from "./Heading";
 import { useState } from "react";
+import { revalidateEstateList } from "../../../../actions";
 
 type Props = {
   modalHandler: () => void;
@@ -31,7 +32,9 @@ export default function Modal({ modalHandler, estate_id }: Props) {
 
       if (!res.ok) throw new Error("Unable to delete single estate");
 
+      await revalidateEstateList();
       router.replace("/");
+      router.refresh();
     } catch (error) {
       console.error(error);
     } finally {

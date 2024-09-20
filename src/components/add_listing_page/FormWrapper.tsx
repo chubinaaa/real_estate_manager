@@ -36,8 +36,8 @@ export default function FormWrapper({ children }: Props) {
       const estate = (await res.json()) as SingleEstate;
 
       await revalidateEstateList();
-      router.push(`/${estate.id}`);
       router.refresh();
+      router.push(`/${estate.id}`);
       localStorage.clear();
     } catch (error) {
       console.error(error);
