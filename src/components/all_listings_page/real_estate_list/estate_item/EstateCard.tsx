@@ -16,7 +16,7 @@ export default function EstateCard({ data }: Props) {
       href={`/${data.id}`}
       className="flex flex-col justify-center items-center select-none | rounded-[14px] | hover:shadow-custom"
     >
-      <EstatePicture source={data.image} />
+      <EstatePicture source={data.image} is_rental={data.is_rental} />
       <div className="w-full flex flex-col justify-center items-start | px-[25px] py-[22px] | bg-white | border-[1px] border-thirdGray rounded-[14px] border-t-0 rounded-t-none overflow-hidden">
         <Price value={data.price} />
         <Location city={data.city.name} region={data.city.region.name} />

@@ -5,6 +5,7 @@ import DeleteListing from "../../components/single_listing_page/delete_listing/D
 import Description from "../../components/single_listing_page/Description";
 import EstateDetails from "../../components/single_listing_page/estate_details/EstateDetails";
 import EstatePicture from "../../components/single_listing_page/EstatePicture";
+import IsRental from "../../components/single_listing_page/IsRental";
 import Suggestions from "../../components/single_listing_page/suggestions/Suggestions";
 import { getSingleEstateData } from "../../utils/get_functions";
 
@@ -17,7 +18,8 @@ export default async function SingleEstatePage({ params }: PageProps) {
       {data ? (
         <>
           <div className="w-full flex justify-between items-start | mt-[30px]">
-            <div className="w-[110%] flex flex-col justify-center items-end gap-3 | rounded-[14px] rounded-b-none overflow-hidden">
+            <div className="relative w-[110%] flex flex-col justify-center items-end gap-3 | rounded-[14px] rounded-b-none overflow-hidden">
+              <IsRental isRental={data.is_rental} />
               <EstatePicture source={data.image} />
               <CreatedAt value={data.created_at} />
             </div>
