@@ -65,8 +65,8 @@ interface EstateInList {
 }
 
 interface IAddEstateCtx {
-    isFormValid: boolean
-    setIsFormValid: React.Dispatch<React.SetStateAction<boolean>>
+    disableBtn: boolean
+    setDisableBtn: React.Dispatch<React.SetStateAction<boolean>>
     inputStates: {
         addressState: StringInputStateType
         postalCodeState: StringInputStateType

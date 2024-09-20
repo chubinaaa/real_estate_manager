@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function AddEstateProvider({ children }: Props) {
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [disableBtn, setDisableBtn] = useState(true);
   const addressState = useState({ value: "", validity: false });
   const postalCodeState = useState({ value: "", validity: false });
   const priceState = useState({ value: "", validity: false });
@@ -40,7 +40,7 @@ export default function AddEstateProvider({ children }: Props) {
       const allValid = Object.values(inputStates).every(
         ([state]) => state.validity
       );
-      setIsFormValid(allValid);
+      setDisableBtn(!allValid);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     Object.values(inputStates).map(([state]) => state.validity)
@@ -49,8 +49,8 @@ export default function AddEstateProvider({ children }: Props) {
   return (
     <AddEstateContext.Provider
       value={{
-        isFormValid,
-        setIsFormValid,
+        disableBtn,
+        setDisableBtn,
         inputStates,
       }}
     >

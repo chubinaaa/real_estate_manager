@@ -5,7 +5,7 @@ import RedButton from "../../ui/buttons/RedButton";
 import { AddEstateContext } from "../../../context/ctx";
 
 export default function Add() {
-  const { isFormValid } = useContext(AddEstateContext);
+  const { disableBtn } = useContext(AddEstateContext);
 
-  return <RedButton type="submit" text="დამატება" disabled={!isFormValid} />;
+  return <RedButton type="submit" text="დამატება" disabled={disableBtn} />;
 }

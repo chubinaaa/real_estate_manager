@@ -1,5 +1,7 @@
+import { unstable_cache } from "next/cache";
 import { API_DOMAIN, API_TOKEN } from "./constants";
 
+// Locations
 export const getRegionList = async () => {
     try {
         const res = await fetch(`${API_DOMAIN}/regions`, {
@@ -18,7 +20,6 @@ export const getRegionList = async () => {
         return null
     }
 };
-
 export const getCitiesList = async () => {
     try {
         const res = await fetch(`${API_DOMAIN}/cities`, {
@@ -38,7 +39,8 @@ export const getCitiesList = async () => {
     }
 }
 
-export const getAgentsList = async () => {
+// Agents
+export const getAgentsList = unstable_cache(async () => {
     try {
         const res = await fetch(`${API_DOMAIN}/agents`, {
             method: "GET",
@@ -50,13 +52,16 @@ export const getAgentsList = async () => {
         });
         if (!res.ok) throw new Error("unable to fetch agents list");
 
-        return await res.json() as Array<Agent>;
+        const data = await res.json() as Array<Agent>
+
+        return data.reverse()
     } catch (error) {
         console.error(error)
         return null
     }
-}
+}, ["agent_list"])
 
+// Estates
 export const getSingleEstateData = async (id: number) => {
     try {
         const res = await fetch(`${API_DOMAIN}/real-estates/${id}`, {
@@ -75,8 +80,7 @@ export const getSingleEstateData = async (id: number) => {
         return null
     }
 };
-
-export const getAllEstates = async () => {
+export const getAllEstates = unstable_cache(async () => {
     try {
         const res = await fetch(`${API_DOMAIN}/real-estates`, {
             method: "GET",
@@ -88,9 +92,11 @@ export const getAllEstates = async () => {
         });
         if (!res.ok) throw new Error("unable to fetch estate list ");
 
-        return await res.json() as Array<EstateInList>;
+        const data = await res.json() as Array<EstateInList>;
+
+        return data.reverse()
     } catch (error) {
         console.error(error)
         return null
     }
-};
+}, ["estate_list"])
