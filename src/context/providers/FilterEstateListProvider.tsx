@@ -36,12 +36,8 @@ export default function FilterEstateListProvider({ children }: Props) {
         console.error("Error parsing localStorage data:", error);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  //   localStorage.setItem("region", JSON.stringify(filter[0].region));
-  //   localStorage.setItem("bedrooms", JSON.stringify(filter[0].bedrooms));
-  //   localStorage.setItem("area", JSON.stringify(filter[0].area));
-  //   localStorage.setItem("price", JSON.stringify(filter[0].price));
 
   return (
     <FilterEstateListContext.Provider value={{ filter }}>

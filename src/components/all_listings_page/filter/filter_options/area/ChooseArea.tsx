@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DropDownButton from "../../../../ui/buttons/DropDownButton";
 import FilterOptionsModal from "../../../../ui/modals/FilterOptionsModal";
 import AreaInputs from "./AreaInputs";
@@ -39,6 +39,22 @@ export default function ChooseArea({ listingMax }: Props) {
     localStorage.setItem("area", JSON.stringify(newValue));
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    if (typeof localStorage !== "undefined") {
+      const storedValue = localStorage.getItem("area");
+
+      if (storedValue) {
+        const updatedValue = JSON.parse(storedValue) as [number, number];
+
+        updatedValue.length > 0 &&
+          setAreaRange({
+            from: updatedValue[0].toString(),
+            till: updatedValue[1].toString(),
+          });
+      }
+    }
+  }, []);
 
   return (
     <form onSubmit={handleFilterApply} className="relative">

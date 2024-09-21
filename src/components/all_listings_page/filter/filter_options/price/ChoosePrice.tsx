@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DropDownButton from "../../../../ui/buttons/DropDownButton";
 import FilterOptionsModal from "../../../../ui/modals/FilterOptionsModal";
 import PriceInputs from "./PriceInputs";
@@ -37,6 +37,22 @@ export default function ChoosePrice({ listingMax }: Props) {
     localStorage.setItem("price", JSON.stringify(newValue));
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    if (typeof localStorage !== "undefined") {
+      const storedValue = localStorage.getItem("price");
+
+      if (storedValue) {
+        const updatedValue = JSON.parse(storedValue) as [number, number];
+
+        updatedValue.length > 0 &&
+          setPriceRange({
+            from: updatedValue[0].toString(),
+            till: updatedValue[1].toString(),
+          });
+      }
+    }
+  }, []);
 
   return (
     <form onSubmit={handleFilterApply} className="relative">
