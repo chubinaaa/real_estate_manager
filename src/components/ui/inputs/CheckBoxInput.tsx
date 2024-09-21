@@ -4,10 +4,13 @@ import Image from "next/image";
 import checked_icon from "/public/svg/checked.svg";
 import { useState } from "react";
 
-type Props = React.InputHTMLAttributes<HTMLInputElement> & { label: string };
+type Props = React.InputHTMLAttributes<HTMLInputElement> & {
+  label: string;
+  checkness: boolean;
+};
 
-export default function CheckBoxInput({ label, ...props }: Props) {
-  const [isChecked, setIsChecked] = useState(false);
+export default function CheckBoxInput({ label, checkness, ...props }: Props) {
+  const [isChecked, setIsChecked] = useState(() => checkness);
 
   const handleChange = () => setIsChecked((prev) => !prev);
 

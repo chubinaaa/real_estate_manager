@@ -30,12 +30,11 @@ export default function ChoosePrice({ listingMax }: Props) {
     const data = new FormData(e.currentTarget);
     const from = Number(data.get("from"));
     const till = data.get("till");
+    const newValue = [from, till ? Number(till) : listingMax];
 
-    filter[1]((prev) => ({
-      ...prev,
-      price: [from, till ? Number(till) : listingMax],
-    }));
+    filter[1]((prev) => ({ ...prev, price: newValue }));
 
+    localStorage.setItem("price", JSON.stringify(newValue));
     setIsOpen(false);
   };
 

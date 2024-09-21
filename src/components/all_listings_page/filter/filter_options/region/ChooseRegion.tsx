@@ -20,8 +20,10 @@ export default function ChooseRegion({ data }: Props) {
 
     const data = new FormData(e.currentTarget);
     const region = data.getAll("region") as Array<string>;
+
     filter[1]((prev) => ({ ...prev, region }));
 
+    localStorage.setItem("region", JSON.stringify(region));
     setIsOpen(false);
   };
 
@@ -43,11 +45,12 @@ export default function ChooseRegion({ data }: Props) {
                   name="region"
                   id={region.id.toString()}
                   value={region.name}
+                  checkness={filter[0].region.includes(region.name)}
                 />
               ))}
             </div>
           ) : (
-            <h1>Error while fetching regions. Try again.</h1>
+            <h1>რეგიონების მონაცემების მიღებისას დაფიქსირდა შეცდომა.</h1>
           )}
         </FilterOptionsModal>
       )}

@@ -25,7 +25,10 @@ export default function ChosenFilters() {
             <FilterTag
               key={min + max}
               label={`${min}₾ - ${max}₾`}
-              deleteAct={() => setFilterBy((prev) => ({ ...prev, price: [] }))}
+              deleteAct={() => {
+                setFilterBy((prev) => ({ ...prev, price: [] }));
+                localStorage.setItem("price", "[]");
+              }}
             />
           );
         } else if (touple[0] === "area" && touple[1].length > 0) {
@@ -34,7 +37,10 @@ export default function ChosenFilters() {
             <FilterTag
               key={from + to}
               label={`${from}მ2 - ${to}მ2`}
-              deleteAct={() => setFilterBy((prev) => ({ ...prev, area: [] }))}
+              deleteAct={() => {
+                setFilterBy((prev) => ({ ...prev, area: [] }));
+                localStorage.setItem("area", "[]");
+              }}
             />
           );
         } else {
@@ -45,12 +51,14 @@ export default function ChosenFilters() {
               key={filter}
               label={filter.toString()}
               deleteAct={() =>
-                setFilterBy((prev) => ({
-                  ...prev,
-                  [possibleValue]: prev[possibleValue].filter(
+                setFilterBy((prev) => {
+                  const newValue = prev[possibleValue].filter(
                     (el) => el !== filter
-                  ),
-                }))
+                  );
+
+                  localStorage.setItem(possibleValue, JSON.stringify(newValue));
+                  return { ...prev, [possibleValue]: newValue };
+                })
               }
             />
           ));
@@ -58,14 +66,15 @@ export default function ChosenFilters() {
       })}
       {isFilterApplied && (
         <Reset
-          action={() =>
+          action={() => {
+            localStorage.clear();
             setFilterBy({
               region: [],
               price: [],
               area: [],
               bedrooms: [],
-            })
-          }
+            });
+          }}
         />
       )}
     </div>

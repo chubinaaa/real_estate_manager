@@ -25,6 +25,8 @@ export default function ChooseRoomsCount({ data }: Props) {
 
     filter[1]((prev) => ({ ...prev, bedrooms }));
 
+    localStorage.setItem("bedrooms", JSON.stringify(bedrooms));
+
     setIsOpen(false);
   };
 
@@ -44,6 +46,7 @@ export default function ChooseRoomsCount({ data }: Props) {
                 id={count.toString()}
                 name="bedroom_count"
                 value={count}
+                checkness={filter[0].bedrooms.includes(count)}
               />
             ))}
           </div>

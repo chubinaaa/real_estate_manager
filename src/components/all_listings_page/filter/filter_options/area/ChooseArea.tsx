@@ -32,11 +32,11 @@ export default function ChooseArea({ listingMax }: Props) {
     const from = Number(data.get("from"));
     const till = data.get("till");
 
-    filter[1]((prev) => ({
-      ...prev,
-      area: [from, till ? Number(till) : listingMax],
-    }));
+    const newValue = [from, till ? Number(till) : listingMax];
 
+    filter[1]((prev) => ({ ...prev, area: newValue }));
+
+    localStorage.setItem("area", JSON.stringify(newValue));
     setIsOpen(false);
   };
 

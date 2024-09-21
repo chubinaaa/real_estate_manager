@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 
-type Props = React.InputHTMLAttributes<HTMLInputElement>;
+type Props = React.InputHTMLAttributes<HTMLInputElement> & {
+  checkness: boolean;
+};
 
-export default function Option({ ...props }: Props) {
-  const [isChecked, setIsChecked] = useState(false);
+export default function Option({ checkness, ...props }: Props) {
+  const [isChecked, setIsChecked] = useState(() => checkness);
 
   const handleChange = () => setIsChecked((prev) => !prev);
 
