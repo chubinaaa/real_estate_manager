@@ -34,7 +34,7 @@ export default function ChosenFilters() {
             <FilterTag
               key={from + to}
               label={`${from}მ2 - ${to}მ2`}
-              deleteAct={() => {}}
+              deleteAct={() => setFilterBy((prev) => ({ ...prev, area: [] }))}
             />
           );
         } else {

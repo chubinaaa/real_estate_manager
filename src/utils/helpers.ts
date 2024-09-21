@@ -20,4 +20,6 @@ export const isRegionsMatched = (estate: string, filter: Array<string>) => {
 export const isPriceRangeMatched = (estate: number, filter: Array<number>) => {
     return filter[0] <= estate && filter[1] >= estate
 }
-export const isareRangeMatched = () => { }
+export const isAreaRangeMatched = (estate: number, filter: Array<number>) => {
+    return filter[0] <= estate && filter[1] >= estate
+}

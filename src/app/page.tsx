@@ -30,6 +30,11 @@ export default async function Home() {
                   ? Math.max(...estateList.map((listing) => listing.price))
                   : 0
               }
+              maxArea={
+                estateList
+                  ? Math.max(...estateList.map((listing) => listing.area))
+                  : 0
+              }
             />
             <ChosenFilters />
           </div>

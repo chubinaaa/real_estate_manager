@@ -4,6 +4,7 @@ import { useContext } from "react";
 import EstateCard from "./estate_item/EstateCard";
 import { FilterEstateListContext as ctx } from "../../../context/ctx";
 import {
+  isAreaRangeMatched,
   isBedroomsCountMatched,
   isPriceRangeMatched,
   isRegionsMatched,
@@ -25,7 +26,7 @@ export default function EstatesList({ data }: Props) {
   const cb = (estate: EstateInList): boolean => {
     if (shouldFilterApply) {
       return (
-        // isareRangeMatched() ||
+        isAreaRangeMatched(estate.area, area) ||
         isPriceRangeMatched(estate.price, price) ||
         isBedroomsCountMatched(estate.bedrooms, bedrooms) ||
         isRegionsMatched(estate.city.region.name, region)
