@@ -16,7 +16,7 @@ export default function CreatedAt({ value }: Props) {
   const created_at = formatDate(value);
 
   return (
-    <h1 className="font-normal text-[16px] text-primaryGray">
+    <h1 className="font-normal text-[16px] text-primaryGray select-none">
       გამოქვეყნების თარიღი {created_at}
     </h1>
   );

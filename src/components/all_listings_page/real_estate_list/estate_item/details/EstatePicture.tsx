@@ -14,8 +14,9 @@ export default function EstatePicture({ source, is_rental }: Props) {
       <Image
         src={source ? source : estate}
         alt="estate picture"
-        width={384}
-        height={307}
+        width={800}
+        height={400}
+        className="h-[307px] object-cover"
       />
     </div>
   );
