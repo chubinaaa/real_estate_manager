@@ -17,3 +17,15 @@ export const AddEstateContext = createContext<IAddEstateCtx>({
     agentState: [{ value: 0, validity: false }, () => {}],
   },
 });
+
+export const FilterEstateListContext = createContext<FilterEstateListCtxType>({
+  filter: [
+    {
+      region: [],
+      price: [],
+      area: [],
+      bedrooms: [],
+    },
+    () => {},
+  ],
+});
