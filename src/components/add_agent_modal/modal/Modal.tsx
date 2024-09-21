@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { API_DOMAIN, API_TOKEN } from "../../../utils/constants";
 import Backdrop from "../../ui/Backdrop";
 import GrayButton from "../../ui/buttons/GrayButton";
@@ -41,13 +41,22 @@ export default function Modal({ modalHandler }: Props) {
       await revalidateAgentsList();
       router.refresh();
       modalHandler();
-      localStorage.clear();
     } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("agent_name_input");
+      localStorage.removeItem("agent_surname_input");
+      localStorage.removeItem("agent_email_input");
+      localStorage.removeItem("agent_phone_input");
+      localStorage.removeItem("agent_avatar_input");
+    };
+  }, []);
 
   return (
     <>
