@@ -5,6 +5,7 @@ import EstateCard from "./estate_item/EstateCard";
 import { FilterEstateListContext as ctx } from "../../../context/ctx";
 import {
   isBedroomsCountMatched,
+  isPriceRangeMatched,
   isRegionsMatched,
 } from "../../../utils/helpers";
 
@@ -24,8 +25,8 @@ export default function EstatesList({ data }: Props) {
   const cb = (estate: EstateInList): boolean => {
     if (shouldFilterApply) {
       return (
-        // isPriceRangeMatched() ||
         // isareRangeMatched() ||
+        isPriceRangeMatched(estate.price, price) ||
         isBedroomsCountMatched(estate.bedrooms, bedrooms) ||
         isRegionsMatched(estate.city.region.name, region)
       );

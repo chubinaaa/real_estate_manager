@@ -25,6 +25,11 @@ export default async function Home() {
                       .sort((a, b) => a - b)
                   : []
               }
+              maxPrice={
+                estateList
+                  ? Math.max(...estateList.map((listing) => listing.price))
+                  : 0
+              }
             />
             <ChosenFilters />
           </div>

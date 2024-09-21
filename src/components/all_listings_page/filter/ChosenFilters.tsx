@@ -25,7 +25,7 @@ export default function ChosenFilters() {
             <FilterTag
               key={min + max}
               label={`${min}₾ - ${max}₾`}
-              deleteAct={() => {}}
+              deleteAct={() => setFilterBy((prev) => ({ ...prev, price: [] }))}
             />
           );
         } else if (touple[0] === "area" && touple[1].length > 0) {
