@@ -3,5 +3,5 @@ type Props = {
 };
 
 export default function Price({ value }: Props) {
-  return <h1 className="font-bold text-[28px] text-primaryBlack">{value} ₾</h1>;
+  return <h1 className="font-bold text-[28px] text-primaryBlack">{value.toLocaleString()} ₾</h1>;
 }

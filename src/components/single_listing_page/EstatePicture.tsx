@@ -10,9 +10,9 @@ export default function EstatePicture({ source }: Props) {
     <Image
       src={source ? source : estate_image}
       alt="estate picture"
-      width={526}
-      height={346}
-      className="w-full"
+      width={1024}
+      height={800}
+      className="w-full h-[670px] object-cover"
     />
   );
 }

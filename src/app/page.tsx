@@ -12,7 +12,7 @@ export default async function Home() {
 
   return (
     <FilterEstateListProvider>
-      <main className="w-full max-w-customMax mx-auto mt-[77px] flex flex-col justify-center items-center gap-8">
+      <main className="w-full max-w-customMax mx-auto mt-[77px] mb-40 flex flex-col justify-center items-center gap-8">
         <div className="w-full flex justify-between items-start">
           <div className="w-full flex flex-col justify-center items-start gap-4">
             <FilterOptions
