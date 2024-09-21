@@ -14,7 +14,7 @@ export default function EstateCard({ data }: Props) {
   return (
     <Link
       href={`/${data.id}`}
-      className="flex flex-col justify-center items-center select-none | rounded-[14px] | hover:shadow-custom"
+      className="w-full max-w-[384px] flex flex-col justify-center items-center select-none | rounded-[14px] | hover:shadow-custom"
     >
       <EstatePicture source={data.image} is_rental={data.is_rental} />
       <div className="w-full flex flex-col justify-center items-start | px-[25px] py-[22px] | bg-white | border-[1px] border-thirdGray rounded-[14px] border-t-0 rounded-t-none overflow-hidden">
