@@ -42,7 +42,10 @@ export default async function SingleEstatePage({ params }: PageProps) {
               <DeleteListing id={data.id} />
             </div>
           </div>
-          <Suggestions />
+          <Suggestions
+            estateId={data.id}
+            estateRegionId={data.city.region_id}
+          />
         </>
       ) : (
         <p className="w-full text-center mt-10">No data found</p>
