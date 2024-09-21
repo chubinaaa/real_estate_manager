@@ -1,57 +1,86 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DropDownButton from "../../../../ui/buttons/DropDownButton";
 import FilterOptionsModal from "../../../../ui/modals/FilterOptionsModal";
 import AreaInputs from "./AreaInputs";
+import MinMaxSuggestions from "./MinMaxSuggestions";
+import { FilterEstateListContext } from "../../../../../context/ctx";
 
-export default function ChooseArea() {
+type Props = {
+  listingMax: number;
+};
+
+export default function ChooseArea({ listingMax }: Props) {
+  const { filter } = useContext(FilterEstateListContext);
   const [isOpen, setIsOpen] = useState(false);
+  const [areaRange, setAreaRange] = useState({
+    from: "",
+    till: "",
+  });
+
+  const validity =
+    areaRange.from.trim().length > 0 &&
+    areaRange.till.trim().length > 0 &&
+    Number(areaRange.from) >= Number(areaRange.till);
+
+  const handleFilterApply = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const data = new FormData(e.currentTarget);
+    const from = Number(data.get("from"));
+    const till = data.get("till");
+
+    const newValue = [from, till ? Number(till) : listingMax];
+
+    filter[1]((prev) => ({ ...prev, area: newValue }));
+
+    localStorage.setItem("area", JSON.stringify(newValue));
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    if (typeof localStorage !== "undefined") {
+      const storedValue = localStorage.getItem("area");
+
+      if (storedValue) {
+        const updatedValue = JSON.parse(storedValue) as [number, number];
+
+        updatedValue.length > 0 &&
+          setAreaRange({
+            from: updatedValue[0].toString(),
+            till: updatedValue[1].toString(),
+          });
+      }
+    }
+  }, []);
 
   return (
-    <div className="relative">
+    <form onSubmit={handleFilterApply} className="relative">
       <DropDownButton
         label="ფართობი"
         action={() => setIsOpen((prev) => !prev)}
         modalState={isOpen}
       />
       {isOpen && (
-        <FilterOptionsModal label="ფართობის მიხედვით">
+        <FilterOptionsModal
+          label="ფართობის მიხედვით"
+          disableBtn={
+            validity ||
+            (areaRange.from.trim().length === 0 &&
+              areaRange.till.trim().length === 0)
+          }
+        >
           <div className="w-full flex flex-col justify-center items-center gap-6">
-            <AreaInputs />
-            <div className="w-full flex justify-start items-center gap-6">
-              <div className="w-full">
-                <h1 className="font-medium text-[14px]">
-                  მინ. მ<sup>2</sup>
-                </h1>
-                <h1 className="font-normal text-[14px]">
-                  20 მ<sup>2</sup>
-                </h1>
-                <h1 className="font-normal text-[14px]">
-                  40 მ<sup>2</sup>
-                </h1>
-                <h1 className="font-normal text-[14px]">
-                  60 მ<sup>2</sup>
-                </h1>
-              </div>
-              <div className="w-full">
-                <h1 className="font-medium text-[14px]">
-                  მაქს. მ<sup>2</sup>
-                </h1>
-                <h1 className="font-normal text-[14px]">
-                  30 მ<sup>2</sup>
-                </h1>
-                <h1 className="font-normal text-[14px]">
-                  50 მ<sup>2</sup>
-                </h1>
-                <h1 className="font-normal text-[14px]">
-                  70 მ<sup>2</sup>
-                </h1>
-              </div>
-            </div>
+            <AreaInputs
+              isInvalid={validity}
+              valueState={[areaRange, setAreaRange]}
+            />
+            <MinMaxSuggestions changeInputs={setAreaRange} />
           </div>
         </FilterOptionsModal>
       )}
-    </div>
+    </form>
   );
 }

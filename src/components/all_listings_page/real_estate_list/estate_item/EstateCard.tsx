@@ -6,32 +6,24 @@ import Price from "./details/Price";
 import EstatePicture from "./details/EstatePicture";
 import Link from "next/link";
 
-const data = {
-  image: "",
-  price: 80000,
-  location: {
-    region: "თბილისი",
-    city: "ი. ჭავჭავაძის 53",
-  },
-  bedrooms: 1,
-  area: 55,
-  postal_code: "0160",
+type Props = {
+  data: EstateInList;
 };
 
-export default function EstateCard() {
+export default function EstateCard({ data }: Props) {
   return (
     <Link
-      href={"/estate"}
-      className="flex flex-col justify-center items-center select-none | rounded-[14px] | hover:shadow-custom"
+      href={`/${data.id}`}
+      className="w-full max-w-[384px] flex flex-col justify-center items-center select-none | rounded-[14px] | hover:shadow-custom"
     >
-      <EstatePicture source={data.image} />
+      <EstatePicture source={data.image} is_rental={data.is_rental} />
       <div className="w-full flex flex-col justify-center items-start | px-[25px] py-[22px] | bg-white | border-[1px] border-thirdGray rounded-[14px] border-t-0 rounded-t-none overflow-hidden">
         <Price value={data.price} />
-        <Location city={data.location.city} region={data.location.region} />
+        <Location city={data.city.name} region={data.city.region.name} />
         <div className="w-full flex justify-start items-center gap-8 pt-5">
           <BedroomCount value={data.bedrooms} />
           <AreaCount value={data.area} />
-          <PostalCode value={data.postal_code} />
+          <PostalCode value={data.zip_code} />
         </div>
       </div>
     </Link>

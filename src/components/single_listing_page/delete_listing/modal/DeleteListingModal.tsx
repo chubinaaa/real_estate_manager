@@ -6,9 +6,10 @@ import Modal from "./Modal";
 
 type Props = {
   modalhandler: () => void;
+  id: number;
 };
 
-export default function DeleteListingModal({ modalhandler }: Props) {
+export default function DeleteListingModal({ modalhandler, id }: Props) {
   const [modalElement, setModalElement] = useState<null | Element>(null);
 
   useEffect(() => {
@@ -20,7 +21,10 @@ export default function DeleteListingModal({ modalhandler }: Props) {
   return (
     <>
       {modalElement &&
-        createPortal(<Modal modalHandler={modalhandler} />, modalElement)}
+        createPortal(
+          <Modal modalHandler={modalhandler} estate_id={id} />,
+          modalElement
+        )}
     </>
   );
 }

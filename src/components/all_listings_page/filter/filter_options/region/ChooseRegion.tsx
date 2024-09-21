@@ -1,24 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import DropDownButton from "../../../../ui/buttons/DropDownButton";
 import FilterOptionsModal from "../../../../ui/modals/FilterOptionsModal";
 import CheckBoxInput from "../../../../ui/inputs/CheckBoxInput";
+import { FilterEstateListContext } from "../../../../../context/ctx";
 
-export default function ChooseRegion() {
+type Props = {
+  data: Array<Region> | null;
+};
+
+export default function ChooseRegion({ data }: Props) {
+  const { filter } = useContext(FilterEstateListContext);
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSubmition = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFilterApply = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.stopPropagation();
 
     const data = new FormData(e.currentTarget);
-    setIsOpen(false);
+    const region = data.getAll("region") as Array<string>;
 
-    console.log(data.getAll("region"));
+    filter[1]((prev) => ({ ...prev, region }));
+
+    localStorage.setItem("region", JSON.stringify(region));
+    setIsOpen(false);
   };
 
   return (
-    <form onSubmit={handleSubmition} className="relative">
+    <form onSubmit={handleFilterApply} className="relative">
       <DropDownButton
         label="რეგიონი"
         action={() => setIsOpen((prev) => !prev)}
@@ -26,50 +36,22 @@ export default function ChooseRegion() {
       />
       {isOpen && (
         <FilterOptionsModal label="რეგიონის მიხედვით">
-          <div className="w-full grid grid-cols-3 justify-items-start gap-x-[50px] gap-y-4">
-            <CheckBoxInput
-              label="თბილისი"
-              name="region"
-              id="tbilisi"
-              value="tbilisi"
-            />
-            <CheckBoxInput
-              label="გურია"
-              name="region"
-              id="guria"
-              value="guria"
-            />
-            <CheckBoxInput
-              label="იმერეთი"
-              name="region"
-              id="imereti"
-              value="imereti"
-            />
-            <CheckBoxInput
-              label="სამეგრელო"
-              name="region"
-              id="samegrelo"
-              value="samegrelo"
-            />
-            <CheckBoxInput
-              label="კახეთი"
-              name="region"
-              id="kakheti"
-              value="kakheti"
-            />
-            <CheckBoxInput
-              label="ქართლი"
-              name="region"
-              id="kartli"
-              value="kartli"
-            />
-            <CheckBoxInput
-              label="აფხაზეთი"
-              name="region"
-              id="apkhazeti"
-              value="apkhazeti"
-            />
-          </div>
+          {data ? (
+            <div className="w-full grid grid-cols-3 justify-items-start gap-x-[50px] gap-y-4">
+              {data.map((region) => (
+                <CheckBoxInput
+                  key={region.id}
+                  label={region.name}
+                  name="region"
+                  id={region.id.toString()}
+                  value={region.name}
+                  checkness={filter[0].region.includes(region.name)}
+                />
+              ))}
+            </div>
+          ) : (
+            <h1>რეგიონების მონაცემების მიღებისას დაფიქსირდა შეცდომა.</h1>
+          )}
         </FilterOptionsModal>
       )}
     </form>

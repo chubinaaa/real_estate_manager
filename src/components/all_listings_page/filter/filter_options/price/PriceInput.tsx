@@ -25,6 +25,7 @@ export default function PriceInput({ ...props }: Props) {
         type="text"
         className="w-full h-[42px] | font-normal text-[14px] | px-[10px] pr-6 | rounded-[6px] | border-[1px] border-primaryGray invalid:border-primaryRed | focus:outline-none"
         onKeyDown={handleKeyDown}
+        autoComplete="off"
         {...props}
       />
       <h1 className="text-[12px] | absolute top-1/2 right-[10px] transform -translate-y-1/2">

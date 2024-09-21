@@ -1,29 +1,79 @@
+"use client";
+
+import { useRef, useState } from "react";
+import Select from "./Select";
+import DropDownModal from "./DropDownModal";
+import Option from "./Option";
+import AgentModalOpener from "./AgentModalOpener";
+
 type Props = React.InputHTMLAttributes<HTMLSelectElement> & {
   labelText: string;
-  optionList: Array<string>;
-  isRequired?: boolean;
+  options: Array<{ id: number; name: string }>;
+  state: NumberInputStateType;
+  putAgentModalOpener?: boolean;
 };
 
 export default function SelectOptions({
   labelText,
-  optionList,
+  options,
+  state,
+  putAgentModalOpener,
   ...props
 }: Props) {
+  const selectionRef = useRef<HTMLSelectElement>(null);
+  const modal = useState(false);
+  const [selectedId, setSelectedId] = state;
+
+  const handleSelection = (option: number) => {
+    setSelectedId({ value: option, validity: true });
+    if (selectionRef.current) selectionRef.current.value = option.toString();
+
+    if (props.id) localStorage.setItem(props.id, option.toString());
+
+    modal[1](false);
+  };
+
   return (
-    <div className="w-full flex flex-col justify-center items-start gap-[5px]">
-      <label htmlFor="somevalue" className="text-[14px] font-medium">
-        {labelText} *
-      </label>
+    <>
       <select
-        className="w-full h-[42px] px-[10px] | bg-white border-[1px] border-primaryGray rounded-[6px] | font-normal text-[14px]"
-        name=""
-        id="somevalue"
+        hidden
+        ref={selectionRef}
+        value={selectedId.value}
+        onChange={(e) =>
+          setSelectedId({ value: Number(e.target.value), validity: false })
+        }
         {...props}
       >
-        {optionList.map((opt, idx) => (
-          <option key={idx}>{opt}</option>
+        <option key={0} value={0}></option>
+        {options.map((opt) => (
+          <option key={opt.id} value={opt.id}>
+            {opt.name}
+          </option>
         ))}
       </select>
-    </div>
+      <div className="relative w-full flex flex-col justify-center items-start gap-[5px] | select-none">
+        <label htmlFor={props.id} className="text-[14px] font-medium">
+          {labelText}
+        </label>
+        <Select
+          selectedName={
+            options.find((el) => el.id === selectedId.value)?.name || ""
+          }
+          state={modal}
+        />
+        {modal[0] && (
+          <DropDownModal>
+            {putAgentModalOpener && <AgentModalOpener />}
+            {options.map((opt) => (
+              <Option
+                key={opt.id}
+                name={opt.name}
+                onClick={() => handleSelection(opt.id)}
+              />
+            ))}
+          </DropDownModal>
+        )}
+      </div>
+    </>
   );
 }

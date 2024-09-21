@@ -1,14 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import DropDownButton from "../../../../ui/buttons/DropDownButton";
 import FilterOptionsModal from "../../../../ui/modals/FilterOptionsModal";
+import Option from "./Option";
+import { FilterEstateListContext } from "../../../../../context/ctx";
 
-export default function ChooseRoomsCount() {
+type Props = {
+  data: Array<number>;
+};
+
+export default function ChooseRoomsCount({ data }: Props) {
+  const { filter } = useContext(FilterEstateListContext);
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleFilterApply = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const data = new FormData(e.currentTarget);
+    const bedrooms = data
+      .getAll("bedroom_count")
+      .map((el) => Number(el)) as Array<number>;
+
+    filter[1]((prev) => ({ ...prev, bedrooms }));
+
+    localStorage.setItem("bedrooms", JSON.stringify(bedrooms));
+
+    setIsOpen(false);
+  };
+
   return (
-    <div className="relative">
+    <form onSubmit={handleFilterApply} className="relative">
       <DropDownButton
         label="საძინებლების რაოდენობა"
         action={() => setIsOpen((prev) => !prev)}
@@ -17,24 +40,18 @@ export default function ChooseRoomsCount() {
       {isOpen && (
         <FilterOptionsModal label="საძინებლების რაოდენობა">
           <div className="w-full grid grid-cols-4 gap-4">
-            <div className="w-10 h-10 | rounded-[6px] border-[1px] border-primaryGray | flex justify-center items-center | cursor-pointer">
-              <h1 className="text-[14px] font-normal text-primaryGray">1</h1>
-            </div>
-            <div className="w-10 h-10 | rounded-[6px] border-[1px] border-primaryGray | flex justify-center items-center | cursor-pointer">
-              <h1 className="text-[14px] font-normal text-primaryGray">2</h1>
-            </div>
-            <div className="w-10 h-10 | rounded-[6px] border-[1px] border-primaryGray | flex justify-center items-center | cursor-pointer">
-              <h1 className="text-[14px] font-normal text-primaryGray">3</h1>
-            </div>
-            <div className="w-10 h-10 | rounded-[6px] border-[1px] border-primaryGray | flex justify-center items-center | cursor-pointer">
-              <h1 className="text-[14px] font-normal text-primaryGray">4</h1>
-            </div>
-            <div className="w-10 h-10 | rounded-[6px] border-[1px] border-primaryGray | flex justify-center items-center | cursor-pointer">
-              <h1 className="text-[14px] font-normal text-primaryGray">5</h1>
-            </div>
+            {data.map((count) => (
+              <Option
+                key={count}
+                id={count.toString()}
+                name="bedroom_count"
+                value={count}
+                checkness={filter[0].bedrooms.includes(count)}
+              />
+            ))}
           </div>
         </FilterOptionsModal>
       )}
-    </div>
+    </form>
   );
 }
