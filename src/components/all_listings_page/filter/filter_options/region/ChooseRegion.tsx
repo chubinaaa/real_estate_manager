@@ -1,28 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import DropDownButton from "../../../../ui/buttons/DropDownButton";
 import FilterOptionsModal from "../../../../ui/modals/FilterOptionsModal";
 import CheckBoxInput from "../../../../ui/inputs/CheckBoxInput";
+import { FilterEstateListContext } from "../../../../../context/ctx";
 
 type Props = {
   data: Array<Region> | null;
 };
 
 export default function ChooseRegion({ data }: Props) {
+  const { filter } = useContext(FilterEstateListContext);
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSubmition = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFilterApply = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.stopPropagation();
 
     const data = new FormData(e.currentTarget);
-    setIsOpen(false);
+    const region = data.getAll("region") as Array<string>;
+    filter[1]((prev) => ({ ...prev, region }));
 
-    console.log(data.getAll("region"));
+    setIsOpen(false);
   };
 
   return (
-    <form onSubmit={handleSubmition} className="relative">
+    <form onSubmit={handleFilterApply} className="relative">
       <DropDownButton
         label="რეგიონი"
         action={() => setIsOpen((prev) => !prev)}
